@@ -84,7 +84,7 @@ bot.start((ctx) => {
 
     // Пытаемся отправить фото с приветствием
     try {
-        ctx.replyWithPhoto('https://via.placeholder.com/512x512/FF6B6B/FFFFFF?text=Welcome', { 
+        ctx.replyWithPhoto('https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&h=300&fit=crop&crop=center', { 
             caption: welcomeText, 
             reply_markup: mainMenu.reply_markup 
         });
@@ -102,7 +102,7 @@ bot.hears('📖 О проекте', (ctx) => {
 
     // Пытаемся отправить фото, если есть
     try {
-        ctx.replyWithPhoto('https://via.placeholder.com/512x512/4ECDC4/FFFFFF?text=About', { caption: aboutText });
+        ctx.replyWithPhoto('https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop&crop=center', { caption: aboutText });
     } catch (error) {
         // Если фото нет, отправляем только текст
         ctx.reply(aboutText);
@@ -121,7 +121,7 @@ bot.hears('👥 Получить клиентов', (ctx) => {
 
     // Пытаемся отправить фото, если есть
     try {
-        ctx.replyWithPhoto('https://via.placeholder.com/512x512/45B7D1/FFFFFF?text=Clients', {
+        ctx.replyWithPhoto('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=300&fit=crop&crop=center', {
             caption: clientsText,
             reply_markup: clientsKeyboard.reply_markup
         });
@@ -150,7 +150,7 @@ bot.hears('💰 Доход', (ctx) => {
     // Отправляем три картинки подряд
     try {
         // Первая картинка с текстом и кнопкой на менеджера
-        ctx.replyWithPhoto('https://via.placeholder.com/512x512/96CEB4/FFFFFF?text=Income', {
+        ctx.replyWithPhoto('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop&crop=center', {
             caption: earnText,
             reply_markup: earnKeyboard.reply_markup
         });
@@ -165,7 +165,7 @@ bot.hears('💰 Доход', (ctx) => {
                 [Markup.button.url('🔗 Получить реф ссылку', 'https://t.me/energy_m_bot?start=ref_' + ctx.from.id)]
             ]);
             
-            ctx.replyWithPhoto('https://via.placeholder.com/512x512/FECA57/FFFFFF?text=Referral', {
+            ctx.replyWithPhoto('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center', {
                 caption: refText,
                 reply_markup: refKeyboard.reply_markup
             });
@@ -179,7 +179,7 @@ bot.hears('💰 Доход', (ctx) => {
                 [Markup.button.url('💼 Купить франшизу', 'https://t.me/Aurelia_8888?text=Хочу купить франшизу, расскажите подробнее о условиях и стоимости')]
             ]);
             
-            ctx.replyWithPhoto('https://via.placeholder.com/512x512/FF9FF3/FFFFFF?text=Franchise', {
+            ctx.replyWithPhoto('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center', {
                 caption: franchiseText,
                 reply_markup: franchiseKeyboard.reply_markup
             });
@@ -204,7 +204,7 @@ bot.hears('🎮 Играть', (ctx) => {
 
     // Пытаемся отправить фото, если есть
     try {
-        ctx.replyWithPhoto('https://via.placeholder.com/512x512/54A0FF/FFFFFF?text=Play', {
+        ctx.replyWithPhoto('https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=300&fit=crop&crop=center', {
             caption: gameText,
             reply_markup: gameKeyboard.reply_markup
         });
