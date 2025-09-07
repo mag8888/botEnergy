@@ -2,14 +2,13 @@
   "name": "energy-telegram-bot",
   "version": "1.0.0",
   "description": "Telegram bot for Energy of Money game",
-  "main": "bot-simple.js",
+  "main": "bot-render.js",
   "scripts": {
-    "start": "node bot-simple.js",
-    "build": "echo 'No build required'",
-    "dev": "node bot-simple.js"
+    "start": "node bot-render.js"
   },
   "dependencies": {
-    "telegraf": "^4.15.6"
+    "telegraf": "^4.15.6",
+    "express": "^4.18.2"
   },
   "engines": {
     "node": ">=18.0.0"
