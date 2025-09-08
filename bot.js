@@ -3,7 +3,7 @@ const express = require('express');
 
 // Конфигурация
 const BOT_TOKEN = process.env.BOT_TOKEN || '8480976603:AAEcYvQ51AEQqeVtaJDypGfg_xMcO7ar2rI';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Google Drive изображения
 const DRIVE_FILE_IDS = {
@@ -68,8 +68,71 @@ app.get('/api/images', (req, res) => {
 
 // Обработчики бота
 bot.start((ctx) => {
-  ctx.reply('🎮 Добро пожаловать в игру "Энергия Денег"!\n\nИспользуйте /game для начала игры.');
+  const message = ctx.message.text;
+  const token = message.split(' ')[1]; // Получаем токен из команды /start login_token
+  
+  if (token && token.startsWith('login_')) {
+    // Обработка авторизации
+    const loginToken = token.replace('login_', '');
+    handleLogin(ctx, loginToken);
+  } else {
+    ctx.reply('🎮 Добро пожаловать в игру "Энергия Денег"!\n\nИспользуйте /game для начала игры.');
+  }
 });
+
+// Функция обработки авторизации
+async function handleLogin(ctx, token) {
+  try {
+    const user = ctx.from;
+    const socketUrl = process.env.SOCKET_URL || 'http://localhost:4000';
+    
+    console.log('🔐 Попытка авторизации:', { token, userId: user.id, username: user.username });
+    console.log('🌐 URL:', `${socketUrl}/tg/authorize`);
+    
+    // Отправляем данные пользователя на сервер
+    const response = await fetch(`${socketUrl}/tg/authorize`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.BOT_TOKEN || BOT_TOKEN}`
+      },
+      body: JSON.stringify({
+        token,
+        id: user.id,
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        photo_url: user.photo_url
+      })
+    });
+
+    console.log('📡 Статус ответа:', response.status);
+    console.log('📡 Заголовки ответа:', response.headers);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Ошибка сервера:', errorText);
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
+    }
+    
+    const result = await response.json();
+    console.log('✅ Ответ сервера:', result);
+    
+    if (result.ok) {
+      await ctx.reply('✅ Вы авторизовались, возвращайтесь в игру!');
+      
+      // Дополнительное сообщение с инструкцией
+      setTimeout(async () => {
+        await ctx.reply('🎮 Теперь вы можете играть в Energy of Money!\n\nПерейдите обратно в браузер для продолжения игры.');
+      }, 1000);
+    } else {
+      await ctx.reply('❌ Ошибка входа. Попробуйте снова.');
+    }
+  } catch (error) {
+    console.error('Ошибка авторизации:', error);
+    await ctx.reply('❌ Произошла ошибка. Попробуйте позже.');
+  }
+}
 
 bot.command('game', (ctx) => {
   const imageUrls = getImageUrls();
