@@ -1,19 +1,13 @@
 {
-  "name": "energy-telegram-bot",
-  "version": "1.0.0",
-  "description": "Telegram bot for Energy of Money game",
-  "main": "bot-render.js",
+  "name": "energy888-telegram-bot",
+  "private": true,
+  "version": "0.1.0",
   "scripts": {
-    "start": "node bot-render.js"
+    "start": "node telegram-bot.js",
+    "dev": "node telegram-bot.js"
   },
-  "dependencies": {
-    "telegraf": "^4.15.6",
-    "express": "^4.18.2"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=18.0.0"
-  },
-  "keywords": ["telegram", "bot", "game", "money", "energy"],
-  "author": "Energy of Money Team",
-  "license": "MIT"
+  }
 }
